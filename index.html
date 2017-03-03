@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>資訊之芽 2017 排行蚌</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gridlex/2.2.4/gridlex.min.css">
+    <link rel="stylesheet" href="/assets/app.css">
+  </head>
+
+  <body>
+    <div id="selector">
+      <h4>選項</h4>
+    </div>
+
+    <div class="container page">
+      <div class="grid-center">
+        <h1><small>非官方</small>資訊之芽 2017 排行榜</h1>
+      </div>
+      <div class="grid-center">
+        <p style="margin-top: -10px; font-size: 13px;">點上面的標題切換「題數排序」/「算法班分數排序」</p>
+      </div>
+
+      <div class="grid">
+        <table class="col chall-table" id="pointtable" style="display: none">
+          <thead>
+            <tr class="grid">
+              <th class="col-1">Rank</th>
+              <th class="col-1">ID</th>
+              <th class="col-2">Name</th>
+              <th class="col-1">Count</th>
+              <th class="col">AC Problems</th>
+              <th class="col-2">Last Updated</th>
+            </tr>
+          </thead>
+          % for i, user in enumerate(pointboard):
+          <tr class="grid">
+            <td class="col-1">{{ i }}</td>
+            <td class="col-1">{{ user['uid'] }}</td>
+            <td class="col-2">{{ user['name'] }}</td>
+            <td class="col-1">{{ user['points'] }}</td>
+            <td class="col">{{ user['problems'] }}</td>
+            <td class="col-2">{{ user['updated_at'] }}</td>
+          </tr>
+          % end
+        </table>
+      </div>
+      <div class="grid">
+        <table class="col chall-table" id="algotable">
+          <thead>
+            <tr class="grid">
+              <th class="col-1">Rank</th>
+              <th class="col-1">ID</th>
+              <th class="col-2">Name</th>
+              <th class="col-1">Rating</th>
+              <th class="col">AC Problems</th>
+              <th class="col-2">Last Updated</th>
+            </tr>
+          </thead>
+          % for i, user in enumerate(algoboard):
+          <tr class="grid">
+            <td class="col-1">{{ i }}</td>
+            <td class="col-1">{{ user['uid'] }}</td>
+            <td class="col-2">{{ user['name'] }}</td>
+            <td class="col-1">{{ user['rate'] }}</td>
+            <td class="col">{{ user['problems'] }}</td>
+            <td class="col-2">{{ user['updated_at'] }}</td>
+          </tr>
+          % end
+        </table>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/assets/app.js"></script>
+  </body>
+</html>

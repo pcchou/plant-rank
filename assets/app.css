@@ -1,0 +1,45 @@
+.page {
+  margin: auto;
+  position: relative;
+  max-width: 1024px;
+  min-width: 700px;
+  min-height: 768px;
+  height: 100%;
+}
+table th {
+  height:1.2rem;
+  line-height:1.2rem;
+  font-weight:400;
+  background-color:gray;
+  color:#fff;
+  text-align:left;
+  display:block
+}
+table td {
+  height:2rem;
+  line-height:2rem;
+  text-align:left;
+  overflow:hidden;
+  display:block
+}
+table td[class*=col] {
+  padding-bottom:0
+}
+.chall-table {
+  width: 100%;
+}
+#selector {
+  position: fixed;
+  right: 10px;
+  padding: 10px;
+  margin: 2px;
+  max-width: 150px;
+  min-width: 90px;
+  z-index: 87;
+  background: #FC8763;
+  border-radius: 3px;
+}
+#selector h4 {
+  display: inline;
+  color: #0c0c0c;
+}

@@ -13,10 +13,10 @@ def assets(filename):
     return static_file(filename, root='./assets/')
 
 def readable(obj):
-    obj['class_name'] = {0: '陌生人',
-                         1: '算法班',
-                         2: 'C語法',
-                         3: 'Py語法'}[obj['category']]
+    obj['class_name'] = {0: '外',
+                         1: '算',
+                         2: 'C',
+                         3: 'Py'}[obj['category']]
     obj['class'] = {0: '',
                     1: 'label-primary',
                     2: 'label-warning',

@@ -1,16 +1,16 @@
+#!/usr/bin/python3
+from json import dumps
+from datetime import datetime
+import os
 from bottle import app as bottleapp
 from bottle import route, run, static_file, template
 from pymongo import MongoClient
-from json import dumps
-from datetime import datetime
 import sprout
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 mongo = MongoClient('localhost', 27017)
 col = mongo['plant-rank']['users']
-
-@route('/assets/<filename:path>')
-def assets(filename):
-    return static_file(filename, root='./assets/')
 
 def readable(obj):
     obj['class_name'] = {0: '陌生人',
@@ -27,6 +27,10 @@ def readable(obj):
     obj['updated_at'] = datetime.fromtimestamp(
             obj['updated_at']).strftime('%Y/%m/%d %H:%M:%S')
     return obj
+
+@route('/assets/<filename:path>')
+def assets(filename):
+    return static_file(filename, root='./assets/')
 
 @route('/')
 def index():

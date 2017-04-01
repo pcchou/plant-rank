@@ -7,7 +7,8 @@ from requests import get as GET, post as POST
 mongo = MongoClient('localhost', 27017)
 col = mongo['plant-rank']['users']
 pcol = mongo['plant-rank']['problems']
-headers = {"User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0",
+scol = mongo['plant-rank']['submissions']
+HEADERS = {"User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0",
           "Referer": "http://neoj.sprout.tw/profile/129?owo",
           "Content-Type": "application/json"}
 
@@ -21,7 +22,7 @@ def prob_cat(pid, s=False):
     else:
         for c in (1, 2, 3):
             for p in loads(POST("http://neoj.sprout.tw/api/proset/{}/list".format(c),
-                                data="{}", headers=headers).text):
+                                data="{}", headers=HEADERS).text):
                 pcol.update({'uid': int(p['problem']['uid'])},
                             {**p['problem'], 'category': c},
                             upsert=True)
@@ -29,9 +30,9 @@ def prob_cat(pid, s=False):
 
 def refresh(uid):
     profile = loads(POST("http://neoj.sprout.tw/api/user/{}/profile".format(uid),
-                    data="{}", headers=headers).text)
+                    data="{}", headers=HEADERS).text)
     statistic = loads(POST("http://neoj.sprout.tw/api/user/{}/statistic".format(uid),
-                      data="{}", headers=headers).text)
+                      data="{}", headers=HEADERS).text)
 
     tp = statistic['tried_problems']
     additional = {'problems': [int(x) for x in tp if tp[x]['result'] == 1],
@@ -52,13 +53,17 @@ def migrate_algoprobs(uid):
                                       if q['tried_problems'][x]['result'] == 1 and prob_cat(int(x)) == 1]}},
                upsert=True)
 
-def lastuids(count=16):
+def last_submitters(count=87):
     cnt = loads(POST("http://neoj.sprout.tw/api/challenge/list",
-                data=dumps({'offset': 0}), headers=headers).text)['count']
-    last = loads(POST("http://neoj.sprout.tw/api/challenge/list",
-                 data=dumps({'offset': cnt-100}), headers=headers).text)
-    return [x['submitter']['uid'] for x in last['data'] if x][-count:]
+                data=dumps({'offset': 0}), headers=HEADERS).text)['count']
+    latest = loads(POST("http://neoj.sprout.tw/api/challenge/list",
+                   data=dumps({'offset': cnt-100}), headers=HEADERS).text)
+
+    for subm in latest['data'][-count:]:
+        if subm and scol.find({'uid': subm['uid']}).count() == 0:
+            scol.insert(subm)
+            yield subm['submitter']['uid']
 
 if __name__ == '__main__':
-    for uid in set(lastuids()):
+    for uid in set(last_submitters()):
         refresh(uid)

@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-from pymongo import MongoClient
-from json import dumps, loads
 from datetime import datetime
+from json import dumps, loads
+
+from pymongo import MongoClient
 from requests import get as GET, post as POST
 
 mongo = MongoClient('localhost', 27017)

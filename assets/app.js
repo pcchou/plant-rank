@@ -1,6 +1,6 @@
 var state = 0;
 $('#algotext').css('font-weight', 'bold');
-$('h1').on('click', function () {
+$('h1').on('click touch touchstart', function () {
   switch (state) {
     case 0:
       $('#algotext').css('font-weight', '');

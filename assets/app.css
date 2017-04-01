@@ -45,7 +45,7 @@ table td[class*=col] {
 }
 .label {
   display: inline;
-  padding: .1em .6em .1em;
+  padding: .1em .5em .1em;
   font-size: 60%;
   font-weight: 700;
   line-height: 1;

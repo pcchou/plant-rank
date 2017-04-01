@@ -57,4 +57,4 @@ def refresh(uid):
     else:
         return dumps({'status': True})
 
-run(app=bottleapp(), port=8787, host="0.0.0.0", debug=False, server='meinheld')
+run(app=bottleapp(), port=8787, host="127.0.0.1", debug=False, server='meinheld')

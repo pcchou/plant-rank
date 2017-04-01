@@ -24,8 +24,8 @@ def readable(obj):
     obj['algopoints'] = len(obj['algoprobs'])
     obj['points'] = len(obj['problems'])
     obj['problems'] = ', '.join(map(str, sorted(obj['problems'])))
-    obj['updated_at'] = datetime.fromtimestamp(
-            obj['updated_at']).strftime('%Y/%m/%d %H:%M:%S')
+    obj['updated_at'] = (datetime.fromtimestamp(obj['updated_at'])
+                         .strftime('%Y/%m/%d %H:%M'))
     return obj
 
 @route('/assets/<filename:path>')

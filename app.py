@@ -13,6 +13,14 @@ def assets(filename):
     return static_file(filename, root='./assets/')
 
 def readable(obj):
+    obj['class_name'] = {0: '陌生人',
+                         1: '算法班',
+                         2: 'C語法',
+                         3: 'Py語法'}[obj['category']]
+    obj['class'] = {0: '',
+                    1: 'label-primary',
+                    2: 'label-warning',
+                    3: 'label-success'}[obj['category']]
     obj['problems'] = ', '.join(map(str, sorted(obj['problems'])))
     obj['updated_at'] = datetime.fromtimestamp(
             obj['updated_at']).strftime('%Y/%m/%d %H:%M:%S')
@@ -22,7 +30,9 @@ def readable(obj):
 def index():
     board = list(map(readable, col.find({})))
     pointboard = sorted(board, key=lambda x: (x['points'], x['rate']), reverse=True)
-    algoboard = sorted(board, key=lambda x: (x['rate'], x['points']), reverse=True)
+    algoboard = sorted(board, key=lambda x: (x['rate'] if x['category'] == 1 else 0,
+                                             x['points']),
+                       reverse=True)
     return template('index.html', locals())
 
 @route('/users/<uid>')

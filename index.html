@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container page">
       <div class="grid-center">
         <h1><small>非官方</small>資訊之芽 2017 排行榜</h1>
       </div>
@@ -33,7 +33,7 @@
           <tr class="grid">
             <td class="col-1">{{ i }}</td>
             <td class="col-1">{{ user['uid'] }}</td>
-            <td class="col-2">{{ user['name'] }}</td>
+            <td class="col-2">{{ user['name'] }} <span class="label {{ user['class'] }}">{{ user['class_name'] }}</span></td>
             <td class="col-1">{{ user['points'] }}</td>
             <td class="col">{{ user['problems'] }}</td>
             <td class="col-2">{{ user['updated_at'] }}</td>
@@ -57,7 +57,7 @@
           <tr class="grid">
             <td class="col-1">{{ i }}</td>
             <td class="col-1">{{ user['uid'] }}</td>
-            <td class="col-2">{{ user['name'] }}</td>
+            <td class="col-2">{{ user['name'] }} <span class="label {{ user['class'] }}">{{ user['class_name'] }}</span></td>
             <td class="col-1">{{ user['rate'] }}</td>
             <td class="col">{{ user['problems'] }}</td>
             <td class="col-2">{{ user['updated_at'] }}</td>
